@@ -27,7 +27,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - './go_cli'
+  - './go_cli2'
   - 'gs://binary_storage/go_cli2'
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'sh'
