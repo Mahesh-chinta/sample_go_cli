@@ -23,26 +23,16 @@ steps:
   - |
     export GOPATH=/workspace/sample_go_cli
     go run main.go check product m1 m2
-    go build -o go_cli.exe -v -ldflags="-s -w" -tags=netgo -a GOOS=windows GOARCH=amd64
+    go build .
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - './go_cli2.exe'
-  - 'gs://binary_storage/go_cli2.exe'
-  
-- name: 'gcr.io/cloud-builders/git'
-  args:
-  - 'clone'
-  - '--depth=1'
-  - 'https://github.com/Mahesh-chinta/sample_go_cli'
-  - 'sample_go_cli'
-  - '-b'
-  - 'main'
+  - './sample_go_cli'
+  - 'gs://binary_storage/sample_go_cli'
   
 - name: 'gcr.io/cloud-builders/bash'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
-    cd sample_go_cli
-    go_cli.exe check product d1 d2
+    ./sample_go_cli check product d1 d2
