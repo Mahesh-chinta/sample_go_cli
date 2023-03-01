@@ -1,9 +1,27 @@
 steps:
-- name: 'gcr.io/cloud-builders/gsutil'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-    gsutil cp gs://binary_storage/sample_go_build
-    chmod +x ./sample_go_build
-    ./sample_go_build check product 01 02
+  # Build the Go application and create a Linux executable
+  - name: 'gcr.io/cloud-builders/go'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        export GOPATH=/workspace/sample_go_cli
+        go run main.go check product m1 m2
+        GOOS=linux GOARCH=amd64 go build -o sample_go_build_linux
+
+  # Store the Linux executable in a Cloud Storage bucket
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - 'cp'
+      - './sample_go_build_linux'
+      - 'gs://binary_storage/sample_go_build_linux'
+
+# steps:
+# - name: 'gcr.io/cloud-builders/gsutil'
+#   entrypoint: 'sh'
+#   args:
+#   - '-c'
+#   - |
+#     gsutil cp gs://binary_storage/sample_go_build
+#     chmod +x ./sample_go_build
+#     ./sample_go_build check product 01 02
