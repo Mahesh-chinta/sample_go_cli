@@ -1,20 +1,15 @@
 steps:
-  # Build the Go application and create a Linux executable
-  - name: 'gcr.io/cloud-builders/go'
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - |
-        export GOPATH=/workspace/sample_go_cli
-        go run main.go check product m1 m2
-        GOOS=linux GOARCH=amd64 go build -o sample_go_build_linux
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'gs://binary_storage/sample_go_build', '.']
+- name: 'golang:1.16'
+  args: ['go', 'build']
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    ./<sample_go_build> check product p1 p2
 
-  # Store the Linux executable in a Cloud Storage bucket
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args:
-      - 'cp'
-      - './sample_go_build_linux'
-      - 'gs://binary_storage/sample_go_build_linux'
 
 # steps:
 # - name: 'gcr.io/cloud-builders/gsutil'
