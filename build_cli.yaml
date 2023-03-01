@@ -45,14 +45,15 @@ steps:
 #     chmod +x ./go_cli
 #     ./go_cli check product d1 d2
 
-# #copy build 
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   entrypoint: 'sh'
-#   args:
-#   - '-c'
-#   - |
-#     gsutil cp gs://binary_storage/go_cli 
-#     chmod +x ./go_cli
+#copy build 
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    gsutil cp gs://binary_storage/sample_go_build
+    chmod 777 ./sample_go_build
+    ./sample_go_build check product d1 d2
 # #run build from prev step
 # - name: 'gcr.io/cloud-builders/bash'
 #   entrypoint: 'sh'
