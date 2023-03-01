@@ -15,6 +15,7 @@
 
 
 #try 2
+#build
 steps:
 - name: 'gcr.io/cloud-builders/go'
   entrypoint: 'sh'
@@ -23,13 +24,42 @@ steps:
   - |
     export GOPATH=/workspace/sample_go_cli
     go run main.go check product m1 m2
-    go build .
+    go build -o sample_go_cli
+    
+#run build (checking if we still have sample_go_cli in memory)
+- name: 'gcr.io/cloud-builders/bash'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    ./sample_go_cli check product d1 d2
+  
+  #storing it in gcs
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
   - './sample_go_cli'
   - 'gs://binary_storage/sample_go_cli'
   
+  #run build from gcs
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    gsutil cp gs://binary_storage/go_cli .
+    chmod +x ./go_cli
+    ./go_cli check product d1 d2
+
+#copy build 
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    gsutil cp gs://binary_storage/go_cli .
+    chmod +x ./go_cli
+#run build from prev step
 - name: 'gcr.io/cloud-builders/bash'
   entrypoint: 'bash'
   args:
