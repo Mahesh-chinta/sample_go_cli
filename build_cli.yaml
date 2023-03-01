@@ -36,4 +36,4 @@ steps:
   - |
     gsutil cp gs://binary_storage/go_cli .
     chmod +x ./go_cli
-    ./go_cli check product d1 d2
+    ./go_cli prp-cli check product d1 d2
