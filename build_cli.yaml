@@ -1,3 +1,20 @@
+# steps:
+# - name: 'gcr.io/cloud-builders/go'
+#   entrypoint: 'sh'
+#   args:
+#   - '-c'
+#   - |
+#     export GOPATH=/workspace/sample_go_cli
+#     go get -u github.com/spf13/cobra
+#     go build -o go_cli
+# - name: 'gcr.io/cloud-builders/gsutil'
+#   args:
+#   - 'cp'
+#   - './go_cli check product d1 d2'
+#   - 'gs://binary_storage/go_cli'
+
+
+#try 2
 steps:
 - name: 'gcr.io/cloud-builders/go'
   entrypoint: 'sh'
@@ -10,5 +27,13 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - './go_cli check product d1 d2'
+  - './go_cli'
   - 'gs://binary_storage/go_cli'
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    gsutil cp gs://binary_storage/go_cli .
+    chmod +x ./go_cli
+    ./go_cli check product d1 d2
