@@ -46,7 +46,7 @@ steps:
 #     ./go_cli check product d1 d2
 
 #copy build 
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
   args:
   - '-c'
