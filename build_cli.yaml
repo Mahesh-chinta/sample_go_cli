@@ -5,6 +5,7 @@ steps:
   - '-c'
   - |
     export GOPATH=/workspace/sample_go_cli
+    go get -u github.com/spf13/cobra
     go build -o go_cli
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
