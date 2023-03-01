@@ -23,17 +23,17 @@ steps:
   - |
     export GOPATH=/workspace/sample_go_cli
     go get -u github.com/spf13/cobra
-    go build -o go_cli
+    go build -o go_cli2
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
   - './go_cli'
-  - 'gs://binary_storage/go_cli'
+  - 'gs://binary_storage/go_cli2'
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-    gsutil cp gs://binary_storage/go_cli .
-    chmod +x ./go_cli
-    ./go_cli prp-cli check product d1 d2
+    gsutil cp gs://binary_storage/go_cli2 .
+    chmod +x ./go_cli2
+    ./go_cli2 prp-cli check product d1 d2
