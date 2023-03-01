@@ -10,5 +10,5 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - './go_cli check d1 d2'
+  - './go_cli check product d1 d2'
   - 'gs://binary_storage/go_cli'
