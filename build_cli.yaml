@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/go'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    export GOPATH=/workspace/sample_go_cli
+    go build -o go_cli
+- name: 'gcr.io/cloud-builders/gsutil'
+  args:
+  - 'cp'
+  - './go_cli'
+  - 'gs://binary_storage/go_cli'
