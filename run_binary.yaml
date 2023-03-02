@@ -1,5 +1,5 @@
 steps:
-- name: 'gcr.io/cloud-builders/gsutil'
+- name: 'gcr.io/cloud-builders/go'
   entrypoint: 'sh'
   args:
   - '-c'
@@ -10,5 +10,5 @@ steps:
     chmod 777 sample_go_build
     pwd
     ls -l
-    ../workspace/sample_go_build check product d1 d2
+    ./sample_go_build check product n1 n2
 
