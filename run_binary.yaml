@@ -4,8 +4,8 @@ steps:
   args:
   - '-c'
   - |
-    gsutil cp gs://binary_storage/sample_go_build .
+    gsutil cp gs://binary_storage/sample_go_build /workspace
     chmod 777 sample_go_build
     ls -l
-    $BUILD_WORKSPACE_DIRECTORY/sample_go_build check product d1 d2
+    /workspace/sample_go_build check product d1 d2
 
