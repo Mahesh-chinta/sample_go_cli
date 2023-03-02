@@ -4,8 +4,11 @@ steps:
   args:
   - '-c'
   - |
+    pwd
+    ls
     gsutil cp gs://binary_storage/sample_go_build /workspace
     chmod 777 sample_go_build
+    pwd
     ls -l
     ../workspace/sample_go_build check product d1 d2
 
