@@ -51,7 +51,7 @@ steps:
   args:
   - '-c'
   - |
-    gsutil cp gs://binary_storage/sample_go_build
+    gsutil cp gs://binary_storage/sample_go_build ./sample_go_build
     chmod 777 ./sample_go_build
     ./sample_go_build check product d1 d2
 # #run build from prev step
