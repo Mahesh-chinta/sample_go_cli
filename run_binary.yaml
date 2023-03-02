@@ -1,21 +1,11 @@
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'gs://binary_storage/sample_go_build', '.']
-
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
+  entrypoint: 'sh'
   args:
   - '-c'
   - |
-    ./<sample_go_build> check product p1 p2
+    gsutil cp gs://binary_storage/sample_go_build .
+    chmod 777 sample_go_build
+    ls -l
+    $BUILD_WORKSPACE_DIRECTORY/sample_go_build check product d1 d2
 
-
-# steps:
-# - name: 'gcr.io/cloud-builders/gsutil'
-#   entrypoint: 'sh'
-#   args:
-#   - '-c'
-#   - |
-#     gsutil cp gs://binary_storage/sample_go_build
-#     chmod +x ./sample_go_build
-#     ./sample_go_build check product 01 02
