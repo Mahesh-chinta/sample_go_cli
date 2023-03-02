@@ -1,21 +1,23 @@
 #try 3 //successful
-#build
+#build.   ( its running well)
 steps:
 - name: 'gcr.io/cloud-builders/go'
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-    export GOPATH=/workspace/sample_go_cli
-    go run main.go check product m1 m2
-    go build -o sample_go_build
-    pwd
-    ls -l
-    ./sample_go_build check product n1 n2
+    export GOPATH=/workspace/sample_go_cli # giving go path to the vm
+    go run main.go check product m1 m2     # running the go cli as a command to get the desired output
+    go build -o sample_go_build            # build the sample_go_build file
+    pwd                                    # present working dir
+    ls -l                                  # listing the files
+    ./sample_go_build check product n1 n2  # running cli with the build file
     
   #storing it in gcs
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - './sample_go_build'
-  - 'gs://binary_storage/sample_go_build'
+  - './sample_go_build'                    # storing this file in binary_storage bucket in gcp project:jio-big-data-poc Goolge cloud storage
+  - 'gs://binary_storage/sample_go_build'  
+# this file has no errors it's tested well 
+# it creates the build and stores it in gcs 
