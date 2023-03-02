@@ -7,5 +7,5 @@ steps:
     gsutil cp gs://binary_storage/sample_go_build /workspace
     chmod 777 sample_go_build
     ls -l
-    /workspace/sample_go_build check product d1 d2
+    ./workspace/sample_go_build check product d1 d2
 
